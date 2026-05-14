@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id" class="no-scroll">
+<head>
+    <style>
+        html.no-scroll, body.no-scroll {
+            overflow: hidden !important;
+            height: 100vh !important;
+            scroll-snap-type: none !important;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Formal</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Playfair Display untuk kesan Eropa & Montserrat untuk teks tubuh -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body class="no-scroll">
+    <!-- Fixed Background Video untuk halaman tengah (Doa - Kado) -->
+    <video autoplay loop muted playsinline class="fixed-bg-video">
+        <source src="assets/page.mp4" type="video/mp4">
+    </video>
+
+    <!-- Audio Element -->
+    <audio id="bgMusic" loop autoplay>
+        <source src="assets/melly.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Music Control Button -->
+    <div id="music-control" class="music-button" onclick="toggleMusic()">
+        <svg id="music-icon" viewBox="0 0 24 24" width="24" height="24" fill="white">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+    </div>
+
+    <!-- Page 1: Cover -->
+    <section id="home" class="page cover">
+        <video autoplay loop muted playsinline class="bg-video">
+            <source src="assets/bunga.mp4" type="video/mp4">
+        </video>
+        <div class="cover-overlay"></div>
+        <div class="content">
+            <h3>THE WEDDING OF</h3>
+            <h1>Bagus & Linda</h1>
+            <p>05 . 06 . 2026</p>
+            <div class="guest-info" style="margin: 20px 0;">
+                <p style="font-size: 0.9rem; margin-bottom: 5px; font-family: 'Montserrat', sans-serif;">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+                <h2 id="guestNameDisplay" style="margin: 0; font-size: 1.8rem; font-family: 'Playfair Display', serif;">Tamu Undangan</h2>
+            </div>
+            <button onclick="scrollToNext()">Buka Undangan</button>
+        </div>
+    </section>
+
+    <!-- Page 2: Doa -->
+    <section class="page prayer">
+        <div class="container">
+            <p class="italic">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..."</p>
+            <p>- QS. Ar-Rum: 21 -</p>
+        </div>
+    </section>
+
+    <!-- Page 3: Kedua Mempelai -->
+    <section id="couple" class="page couple">
+        <video autoplay loop muted playsinline class="bg-video">
+            <source src="assets/page3.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <h2>The Wedding Of</h2>
+            <div class="couple-flex">
+                <div class="person">
+                    <div class="couple-photo" style="background-image: url('assets/pria.png')"></div>
+                    <h3>Bagus Uji P (Ujeng)</h3>
+                    <p>Putra dari Bp. Surya & Ibu Siti Aminah</p>
+                </div>
+                <span class="ampersand">&</span>
+                <div class="person">
+                    <div class="couple-photo" style="background-image: url('assets/wanita.png')"></div>
+                    <h3>Linda Elisa W (Sherli)</h3>
+                    <p>Putri dari Bp. Sugiyo (Alm) & Ibu Daisah</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 4: Hitungan Mundur -->
+    <section class="page countdown-section">
+        <h2>Save The Date</h2>
+        <div id="timer">
+            <div class="time-box"><span id="days">00</span><p>Hari</p></div>
+            <div class="time-box"><span id="hours">00</span><p>Jam</p></div>
+            <div class="time-box"><span id="minutes">00</span><p>Menit</p></div>
+        </div>
+    </section>
+
+    <!-- Page 5: Hari Resepsi -->
+    <section class="page event">
+        <h2>The Celebration</h2>
+        <div class="event-card">
+            <h3>Akad Nikah</h3>
+            <p>Jumat, 5 Juni 2026</p>
+            <p>14.00 WIB - Selesai</p>
+            <hr>
+            <h3>Resepsi Pernikahan</h3>
+            <p>Jumat Malam, 5 Juni 2026</p>
+            <p>& Sabtu, 6 Juni 2026</p>
+            <hr>
+            <p><strong>Lokasi Acara</strong></p>
+            <p>Kediaman Mempelai Wanita</p>
+            
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3959.557001159584!2d109.3187222!3d-7.0612222000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwMDMnNDAuNCJTIDEwOcKwMTknMDcuNCJF!5e0!3m2!1sid!2sid!4v1778732433429!5m2!1sid!2sid" 
+                    width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <a href="https://maps.app.goo.gl/cUTSrnTvjqUYhZQi7" target="_blank" class="btn-map">Buka Google Maps</a>
+        </div>
+    </section>
+
+    <!-- Page 6: Story -->
+    <section id="story" class="page story">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="assets/page4.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <h2>Kisah Cinta</h2>
+            <div class="timeline">
+                <div class="story-item">
+                    <div class="story-dot"></div>
+                    <div class="story-date">Juni 2022</div>
+                    <div class="story-content">
+                        <h3>Pertama Bertemu</h3>
+                        <p>Pertemuan pertama kami yang tak terduga, mengawali segalanya dengan senyuman.</p>
+                    </div>
+                </div>
+                <div class="story-item">
+                    <div class="story-dot"></div>
+                    <div class="story-date">Agustus 2023</div>
+                    <div class="story-content">
+                        <h3>Menjalin Kasih</h3>
+                        <p>Setelah melewati banyak cerita, kami memutuskan untuk melangkah bersama dalam ikatan cinta.</p>
+                    </div>
+                </div>
+                <div class="story-item">
+                    <div class="story-dot"></div>
+                    <div class="story-date">Januari 2025</div>
+                    <div class="story-content">
+                        <h3>Lamaran</h3>
+                        <p>Momen sakral saat kami berjanji untuk menyatukan dua keluarga dalam satu komitmen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 7: RSVP -->
+    <section class="page rsvp">
+        <h2>RSVP</h2>
+        <p>Mohon konfirmasi kehadiran Anda untuk membantu kami mempersiapkan acara.</p>
+        <form class="rsvp-form" id="rsvpForm">
+            <input type="text" name="nama" id="rsvpNama" placeholder="Nama Lengkap" required>
+            <select name="kehadiran" required>
+                <option value="" disabled selected>Kehadiran</option>
+                <option value="hadir">Hadir</option>
+                <option value="tidak">Tidak Hadir</option>
+            </select>
+            <input type="number" name="jumlah" placeholder="Jumlah Tamu" min="1" max="10">
+            <textarea name="pesan" placeholder="Pesan & Doa (Opsional)" rows="3"></textarea>
+            <button type="submit" id="submitBtn">Kirim RSVP</button>
+        </form>
+
+        <div class="comments-section">
+            <h3>Ucapan & Doa</h3>
+            <div class="comments-container" id="commentsContainer">
+                <p id="loadingComments" style="text-align: center; font-size: 0.9em; opacity: 0.7;">Memuat komentar...</p>
+                <!-- Komentar asli dari Spreadsheet akan muncul di sini -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 8: Kado / Wedding Gift -->
+    <section id="gift" class="page gift">
+        <div class="gift-container">
+            <h2>Wedding Gift</h2>
+            <p class="gift-subtitle">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Anda berkenan memberikan tanda kasih lebih, dapat dikirimkan melalui:</p>
+            
+            <!-- Card 1: Bank -->
+            <div class="bank-card">
+                <div class="bank-header">
+                    <span class="bank-name">BANK BRI</span>
+                    <div class="chip"></div>
+                </div>
+                <div class="bank-body">
+                    <p class="bank-number">7501 0102 3679 536</p>
+                    <p class="bank-owner">Linda Elisa W.</p>
+                </div>
+            </div>
+            <button class="btn-copy" onclick="copyRekening('750101023679536', this)">Salin No. Rekening</button>
+
+            <div style="margin-top: 30px;"></div>
+
+            <!-- Card 2: DANA -->
+            <div class="bank-card" style="background: linear-gradient(135deg, #0085FF 0%, #0056A3 100%);">
+                <div class="bank-header">
+                    <span class="bank-name">DANA</span>
+                    <div class="chip" style="background: #fff; opacity: 0.8;"></div>
+                </div>
+                <div class="bank-body">
+                    <p class="bank-number">0831 1967 2633</p>
+                    <p class="bank-owner">Linda Elisa W.</p>
+                </div>
+            </div>
+            <button class="btn-copy" onclick="copyRekening('083119672633', this)">Salin No. DANA</button>
+        </div>
+    </section>
+
+    <!-- Page 8: Terima Kasih -->
+    <section class="page thanks">
+        <div class="content">
+            <h2>Thank You</h2>
+            <p>Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
+            <p class="signature">Bagus & Linda</p>
+        </div>
+
+        <div class="credit-section">
+            <p><img src="assets/SF.png" alt="SF Logo" class="credit-logo"> Created by Sofwa Undangan</p>
+            <a href="https://instagram.com/sofwarizahra" target="_blank" class="credit-ig">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" style="vertical-align: middle; margin-right: 4px;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                @sofwarizahra
+            </a>
+        </div>
+    </section>
+
+    <nav class="bottom-menu">
+        <a href="#home" class="menu-item active">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Home</span>
+        </a>
+        <a href="#couple" class="menu-item">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <span>Love</span>
+        </a>
+        <a href="#story" class="menu-item">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor"><path d="M40-120v-160q0-34 23.5-57t56.5-23h131q20 0 38 10t29 27q29 39 71.5 61t90.5 22q49 0 91.5-22t70.5-61q13-17 30.5-27t36.5-10h131q34 0 57 23t23 57v160H640v-91q-35 25-75.5 38T480-160q-43 0-84-13.5T320-212v92H40Zm120-280q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T280-520q0 50-34.5 85T160-400Zm640 0q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T920-520q0 50-34.5 85T800-400Zm-320-80q-68-62-111-104.5T302-658q-24-31-33-54.5t-9-47.5q0-50 35-85t86-35q28 0 54 12.5t45 33.5q19-21 45-33.5t54-12.5q51 0 86 35t35 85q0 24-9 47.5T658-658q-24 31-67 73.5T480-480Zm0-108q72-66 106-107.5t34-64.5q0-17-12-28.5T579-800q-12 0-23.5 7T532-772l-51 59-51-57q-14-16-25.5-23t-23.5-7q-17 0-29 11.5T340-760q0 23 34 64.5T480-588Zm0 0Z"/></svg>
+            <span>Story</span>
+        </a>
+        <a href="#gift" class="menu-item">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+            <span>Gift</span>
+        </a>
+    </nav>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
