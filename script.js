@@ -1,15 +1,22 @@
+// Fungsi Utama Memulai Musik
+function startMusic() {
+    const music = document.getElementById('bgMusic');
+    const control = document.getElementById('music-control');
+    if (music && music.paused) {
+        music.play().then(() => {
+            if (control) control.classList.add('playing');
+        }).catch(err => console.log("Menunggu interaksi nyata untuk memutar musik..."));
+    }
+}
+
 // Fungsi Scroll & Musik
 function scrollToNext() {
-    // Aktifkan scroll dengan menghapus class no-scroll dari body dan html
+    // Aktifkan scroll
     document.body.classList.remove('no-scroll');
     document.documentElement.classList.remove('no-scroll');
     
-    // Putar Musik saat undangan dibuka
-    const music = document.getElementById('bgMusic');
-    if (music) {
-        music.play();
-        document.getElementById('music-control').classList.add('playing');
-    }
+    // Pastikan musik berputar
+    startMusic();
     
     // Beri sedikit jeda agar browser merender ulang overflow sebelum scroll
     setTimeout(() => {
@@ -264,19 +271,18 @@ if (bottomMenu && coverSection) {
 window.addEventListener('load', () => {
     const music = document.getElementById('bgMusic');
     if (music) {
+        console.log("Mencoba memulai musik...");
         music.play().then(() => {
+            console.log("Autoplay berhasil!");
             document.getElementById('music-control').classList.add('playing');
         }).catch(err => {
-            console.log("Autoplay diblokir browser, musik akan berputar setelah interaksi pertama.");
+            console.warn("Autoplay diblokir browser, menunggu interaksi user.");
         });
         
-        // Fallback: Putar saat klik pertama kali di mana saja (jika autoplay diblokir)
-        document.addEventListener('click', function startMusic() {
-            if (music.paused) {
-                music.play();
-                document.getElementById('music-control').classList.add('playing');
-            }
-            document.removeEventListener('click', startMusic);
-        }, { once: true });
+        const interactionStart = () => {
+            startMusic();
+            ['click', 'touchstart', 'mousedown', 'keydown', 'scroll'].forEach(e => document.removeEventListener(e, interactionStart));
+        };
+        ['click', 'touchstart', 'mousedown', 'keydown', 'scroll'].forEach(e => document.addEventListener(e, interactionStart));
     }
 });
