@@ -29,8 +29,61 @@ function scrollToNext() {
                 behavior: 'smooth'
             });
         }
+
+        // Aktifkan auto-scroll setelah undangan dibuka
+        startAutoScroll();
     }, 50);
 }
+
+// ========== AUTO SCROLL ==========
+let autoScrollInterval = null;
+let isUserScrolling = false;
+let userScrollTimeout = null;
+
+function startAutoScroll() {
+    const pages = Array.from(document.querySelectorAll('.page'));
+    let currentIndex = 0;
+
+    // Deteksi halaman aktif berdasarkan posisi scroll
+    function getCurrentIndex() {
+        const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        let closest = 0;
+        let minDiff = Infinity;
+        pages.forEach((page, i) => {
+            const diff = Math.abs(page.offsetTop - scrollTop);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closest = i;
+            }
+        });
+        return closest;
+    }
+
+    // Auto scroll ke halaman berikutnya setiap 5 detik
+    autoScrollInterval = setInterval(() => {
+        if (isUserScrolling) return; // Jeda jika user sedang scroll manual
+
+        currentIndex = getCurrentIndex();
+        const nextIndex = currentIndex + 1;
+
+        if (nextIndex < pages.length) {
+            pages[nextIndex].scrollIntoView({ behavior: 'smooth' });
+        } else {
+            // Sudah di halaman terakhir, hentikan auto-scroll
+            clearInterval(autoScrollInterval);
+        }
+    }, 5000); // Ganti angka 5000 untuk mengubah jeda (dalam milidetik)
+
+    // Pause auto-scroll saat user scroll manual, resume setelah 10 detik
+    document.body.addEventListener('scroll', () => {
+        isUserScrolling = true;
+        clearTimeout(userScrollTimeout);
+        userScrollTimeout = setTimeout(() => {
+            isUserScrolling = false;
+        }, 10000); // Resume auto-scroll 10 detik setelah user berhenti scroll
+    });
+}
+// ========== END AUTO SCROLL ==========
 
 // Toggle Play/Pause Musik
 function toggleMusic() {
@@ -267,22 +320,24 @@ if (bottomMenu && coverSection) {
     menuObserver.observe(coverSection);
 }
 
-// Mencoba Autoplay Musik saat halaman dimuat
-window.addEventListener('load', () => {
-    const music = document.getElementById('bgMusic');
-    if (music) {
-        console.log("Mencoba memulai musik...");
-        music.play().then(() => {
-            console.log("Autoplay berhasil!");
-            document.getElementById('music-control').classList.add('playing');
-        }).catch(err => {
-            console.warn("Autoplay diblokir browser, menunggu interaksi user.");
-        });
-        
-        const interactionStart = () => {
-            startMusic();
-            ['click', 'touchstart', 'mousedown', 'keydown', 'scroll'].forEach(e => document.removeEventListener(e, interactionStart));
-        };
-        ['click', 'touchstart', 'mousedown', 'keydown', 'scroll'].forEach(e => document.addEventListener(e, interactionStart));
-    }
+// ========== AUTOPLAY MUSIK ==========
+// Coba sedini mungkin (sebelum window load)
+document.addEventListener('DOMContentLoaded', () => {
+    startMusic();
 });
+
+// Coba lagi saat semua aset selesai dimuat
+window.addEventListener('load', () => {
+    startMusic();
+});
+
+// Pasang listener pada WINDOW dengan capture: true agar jadi yang pertama ditangani
+// sehingga musik menyala pada interaksi pertama sekecil apapun
+const _autoplayEvents = ['click', 'touchstart', 'touchend', 'mousedown', 'keydown', 'scroll', 'pointerdown'];
+const _autoplayHandler = () => {
+    startMusic();
+    // Hapus listener setelah musik berhasil diputar
+    _autoplayEvents.forEach(e => window.removeEventListener(e, _autoplayHandler, { capture: true }));
+};
+_autoplayEvents.forEach(e => window.addEventListener(e, _autoplayHandler, { capture: true, once: true }));
+// ========== END AUTOPLAY MUSIK ==========
