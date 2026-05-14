@@ -243,20 +243,21 @@ const bottomMenu = document.querySelector('.bottom-menu');
 const coverSection = document.querySelector('.cover');
 
 if (bottomMenu && coverSection) {
-    // Jalankan pengecekan saat di-scroll
-    window.addEventListener('scroll', () => {
-        // Tampilkan menu jika pengunjung sudah scroll melewati setengah dari halaman cover
-        if (window.scrollY > coverSection.offsetHeight * 0.5) {
-            bottomMenu.classList.add('show');
-        } else {
-            bottomMenu.classList.remove('show');
-        }
+    // Gunakan IntersectionObserver agar lebih akurat mendeteksi perpindahan halaman (terutama pada scroll-snap)
+    const menuObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Jika halaman cover sudah tidak mendominasi layar (kurang dari 10% terlihat)
+            if (!entry.isIntersecting) {
+                bottomMenu.classList.add('show');
+            } else {
+                bottomMenu.classList.remove('show');
+            }
+        });
+    }, { 
+        threshold: 0.1 // Pemicu saat hanya 10% halaman cover yang tersisa di layar
     });
-    
-    // Jalankan sekali saat halaman pertama kali dimuat (berjaga-jaga jika halaman di-refresh saat posisi di bawah)
-    if (window.scrollY > coverSection.offsetHeight * 0.5) {
-        bottomMenu.classList.add('show');
-    }
+
+    menuObserver.observe(coverSection);
 }
 
 // Mencoba Autoplay Musik saat halaman dimuat

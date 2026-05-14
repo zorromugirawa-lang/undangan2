@@ -21,20 +21,29 @@ html {
     padding: 0;
     font-family: 'Montserrat', sans-serif;
     color: var(--text);
-    scroll-behavior: smooth;
     background-color: transparent;
+}
+
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    height: 100dvh;
+    overflow-y: auto;
     overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 body.no-scroll,
 html.no-scroll {
     overflow: hidden !important;
     height: 100vh !important;
+    height: 100dvh !important;
     scroll-snap-type: none !important;
-}
-
-html {
-    scroll-snap-type: y mandatory;
 }
 
 h1,
@@ -45,18 +54,20 @@ h3 {
 }
 
 .page {
-    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px 20px;
-    border-bottom: 1px solid var(--bg-alt);
+    padding: 20px;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     width: 100%;
     overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
 }
 
 .page > * {
@@ -320,12 +331,12 @@ h3 {
 @media (max-width: 768px) {
     .cover h1 { font-size: 2.2rem; }
     .cover h3 { font-size: 0.9rem; }
-    .page { padding: 40px 15px; min-height: 90vh; display: flex; justify-content: center; }
-    .couple-photo { width: 160px; height: 160px; }
+    .page { padding: 15px; height: 100dvh; }
+    .couple-photo { width: 140px; height: 140px; }
     .ampersand { font-size: 1.8rem; margin: 5px 0; width: 100%; }
-    .event-card { padding: 15px; width: 100%; box-sizing: border-box; }
-    .time-box { padding: 10px; min-width: 70px; }
-    .time-box span { font-size: 1.1rem; }
+    .event-card { padding: 12px; width: 100%; box-sizing: border-box; }
+    .map-container { height: 150px; margin: 10px 0; }
+    .btn-map { padding: 8px 15px; font-size: 12px; }
     .rsvp-form { max-width: 100%; }
     .bank-card { padding: 12px; max-width: 100%; }
     .bank-number { font-size: 1.2rem; }
